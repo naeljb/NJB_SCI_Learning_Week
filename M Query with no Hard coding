@@ -1,0 +1,28 @@
+let
+    GetPage = (offset as number) as record =>
+        let
+            Source = Json.Document(
+                Web.Contents(
+                    "https://" & KoboServer,
+                    [
+                        RelativePath = "api/v2/assets/" & AssetUid & "/data.json",
+                        Query = [limit = Text.From(PageSize), offset = Text.From(offset)],
+                        Headers = [Authorization = "Token " & ApiToken]
+                    ]
+                )
+            )
+        in
+            Source,
+
+    Pages = List.Generate(
+        () => [Result = GetPage(0), Offset = 0],
+        each [Offset] < [Result][count],
+        each [Result = GetPage([Offset] + PageSize), Offset = [Offset] + PageSize],
+        each [Result][results]
+    ),
+
+    CombinedResults = List.Combine(Pages),
+    ResultsTable = Table.FromList(CombinedResults, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+    ExpandedTable = Table.ExpandRecordColumn(ResultsTable, "Column1", Record.FieldNames(CombinedResults{0}))
+in
+    ExpandedTable
