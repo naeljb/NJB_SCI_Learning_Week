@@ -4,7 +4,7 @@
 ![Language](https://img.shields.io/badge/Language-M%20%7C%20Python%203.x-green)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-Welcome to the official repository for the **"From KoboToolbox to Power BI: Building an Automated MEAL Data Pipeline"** workshop. This repository contains all code snippets, template queries, Python quality assurance scripts, and bilingual documentation needed to transition from manual CSV exports to a zero-touch, automated data pipeline.
+Welcome to my repository for the **"From KoboToolbox to Power BI: Building an Automated MEAL Data Pipeline"** workshop. This repository contains all code snippets, template queries, Python quality assurance scripts, and bilingual documentation needed to transition from manual CSV exports to a zero-touch, automated data pipeline.
 
 ---
 
