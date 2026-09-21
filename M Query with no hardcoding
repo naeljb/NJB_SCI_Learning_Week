@@ -1,0 +1,34 @@
+let  
+    // 1. Fetch individual JSON page using RelativePath and Query parameters   
+    GetPage = (offset as number) as record =>  
+        let  
+            Source = Json.Document(  
+                Web.Contents(  
+                    "https://" & KoboServer,  
+                    [  
+                        RelativePath = "api/v2/assets/" & AssetUid & "/data.json",  
+                        Query = [limit = Text.From(PageSize), offset = Text.From(offset)],  
+                        Headers = [Authorization = "Token " & ApiToken]  
+                    ]  
+                )  
+            )  
+        in  
+            Source,  
+  
+    // 2. Loop through paginated pages using List.Generate  
+    Pages = List.Generate(  
+        () => [Result = GetPage(0), Offset = 0],  
+        each [Offset] < [Result][count],  
+        each [Result = GetPage([Offset] + PageSize), Offset = [Offset] + PageSize],  
+        each [Result][results]  
+    ),  
+  
+    // 3. Combine paginated lists into a single tabular result  
+    CombinedResults = List.Combine(Pages),  
+    ResultsTable = Table.FromList(CombinedResults, Splitter.SplitByNothing(), null, null, ExtraValues.Error),  
+  
+    // 4. Extract all unique record keys dynamically across all submissions  
+    AllFieldNames = List.Distinct(List.Combine(List.Transform(CombinedResults, Record.FieldNames))),  
+    ExpandedTable = Table.ExpandRecordColumn(ResultsTable, "Column1", AllFieldNames)  
+in  
+    ExpandedTable
