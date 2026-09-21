@@ -1,6 +1,6 @@
 # Building an Automated MEAL Data Pipeline: KoboToolbox to Power BI
 
-![Pipeline Architecture](https://img.shields.io/badge/Pipeline-KoboToolbox%20%E2%86%92%20PowerQuery%20%E2%86%92%20Python%20%E2%86%92%20PowerBI-blue)
+![Pipeline Architecture](https://img.shields.io/badge/Pipeline-KoboToolbox%20%E2%86%92%20PowerQuery%20%E2%86%92%20%20%E2%86%92%20PowerBI-blue)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 Welcome to my repository for the **"From KoboToolbox to Power BI: Building an Automated MEAL Data Pipeline"** . This repository contains all code snippets, template queries, and bilingual documentation needed to transition from manual CSV exports to a zero-touch, automated data pipeline.
